@@ -1,3 +1,113 @@
 * {
     margin: 0;
 }
+
+#input-container {
+    display: grid;
+    grid:".  .    .   .    .   .    .      .   ." 10vh
+         ".  a    .   b    .   c    c1     d   ." 7vh
+         ".  .    .   .    .   .    .      .   ." 10vh /
+         3vw 20vw 4vw 20vw 4vw 20vw 16.5vw 9vw 4vw;
+    background-color: #cccccc;
+}
+
+#formatInput h1 {
+    font-size: 5vh;
+    transform: translate(0,-5.5vh);
+}
+
+h1, input {
+    text-align: center;
+}
+
+#total {
+    align-self: start;
+    align-self: end;
+    overflow: hidden;
+    font-size: 2vw;
+
+}
+
+input[type="text"], input[type="number"] {
+    font-size: 30px;
+}
+
+input[type=button] {
+    font-size: 2vw;
+}
+
+#output-container {
+    display: grid;
+    height: 73vh;
+}
+
+#output-container div:nth-child(2n+1) {
+    background-color: green;
+    color: white;
+}
+
+#output-container div {
+    padding-top: calc(73vh/3/2 - 10vh);
+}
+
+.data-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#label-container {
+    display: grid;
+    background-color: darkred;
+}
+
+#label-container .data-container h1 {
+    width: calc(10% + 4px);
+    height: calc(1.5vw + 2px);
+    font-size: 1.5vw;
+    font-family: "Times New Roman", Times, Baskerville, Georgia, serif;
+    font-weight: bold;
+    color: inherit;
+    border: none;
+    margin-left: calc(-10vw - 9.133vh);
+}
+
+#label-container .data-container h1:nth-child(4) {
+    width: 7.3%;
+    margin-right: calc(12.89vw + 1em);
+}
+
+.data-container input#remove {
+    margin-left: 12vw;
+    margin-right: -1.5vw;
+}
+
+.data-container input:not(#remove) {
+    width: 10%;
+    height: 1.5vw;
+    background-color: transparent;
+    font-size: 1.5vw;
+    font-family: "Times New Roman", Times, Baskerville, Georgia, serif;
+    font-weight: bold;
+    color: inherit;
+    border: none;
+    margin-left: -2vw;
+}
+
+.data-container h1 {
+    font-size: 5vh;
+    font-family: inherit;
+}
+
+.data-container input:not(#remove)::placeholder {
+    color: #666666;
+}
+#output-container div:nth-child(2n+1) input::placeholder {
+    background-color: green;
+    color: #999999;
+}
+
+#output-container div:last-child {
+    color: #000;
+    background-color: gray;
+}

@@ -1,64 +1,110 @@
-//Get.a("box").named("conner");
+var count = 0;
 
-/*create a function with the above notation that does the following...
+function addItem() {
+    var listItem = document.createElement("div");
+    listItem.className = "data-container list-Item";
+    listItem.id = "data-container"+count;
 
-creates a global variable inside the function
-names the variable using the parameter inside the .named function
-makes the variable an array if the .a() function has the "box" string
-makes the variable a number if the .a() function has the "number" string
-and gives the variable 1 to 10 items that are strings named "empty"
+    var h1 = [];
 
-*/
+    var itemName = document.getElementById("name").value;
+    h1[0] = document.createElement("input");
+    h1[0].placeholder = "Name";
+    h1[0].value = itemName;
 
-//a("box").named("conner");
+    var itemCost = document.getElementById("cost").value;
+    h1[1] = document.createElement("input");
+    h1[1].placeholder = "Cost";
+    h1[1].value = itemCost;
+    h1[1].setAttribute("onchange","currency(this); getTotal(this,this.nextElementSibling, this.parentElement.children[3]); allItems();");
 
-var a = function(string) {
-    return new get(string);
+    var itemAmount = document.getElementById("amount").value;
+    h1[2] = document.createElement("input");
+    h1[2].placeholder = "Amount";
+    h1[2].value = itemAmount;
+    h1[2].setAttribute("onchange","getTotal(this.previousElementSibling, this, this.parentElement.children[3]); allItems();");
+
+    var itemTotal = document.getElementById("total").innerText;
+    h1[3] = document.createElement("h1");
+    h1[3].placeholder = "total";
+    h1[3].innerHTML = itemTotal;
+
+    var input = document.createElement("input");
+    input.type = "button";
+    input.value = "remove";
+    input.id = "remove";
+    input.setAttribute("onclick","removeItem(this.parentElement); allItems();")
+
+    listItem.appendChild(h1[0]);
+    listItem.appendChild(h1[1]);
+    listItem.appendChild(h1[2]);
+    listItem.appendChild(h1[3]);
+    listItem.appendChild(input);
+
+    var parent = document.getElementById("output-container");
+    var info = document.getElementById("information");;
+    
+    parent.insertBefore(listItem, info);
+    count++;
 }
 
-class get {
-    constructor(type) {
-        this.type = type;
+function removeItem(a) {
+    var obj = document.getElementById(a.id);
+    obj.remove();
+    count--;
+}
+
+Number.prototype.Dollars = function() {
+    var val = this;
+    var cur = "$"+val.toFixed(2);
+    return cur;
+}
+
+Object.prototype.Simple = function() {
+    return Number((this.toString()).replace(/[^0-9.-]+/g,""))
+}
+
+function currency(a) {
+    var currency = a.value;
+    var val = Number(currency.replace(/[^0-9.-]+/g,"")); //raw value
+    if (val) {
+        a.value = val.Dollars();
     }
-    named(name) {
-        var value;
-        if (this.type === "box") {
-            value = "[]";
-        }
+    else if (val <= 0) {
+        a.value = "$0.00";
     }
 }
 
-function randomArray(from,to,itemName) {
-    var randArray = [];
-    for (var i=from; i<to; i++) {
-        randArray.push(itemName);
-    }
-    return randArray;
+function getTotal(a,b,total) {
+    var itemCost = a.value.Simple();
+    var amount = b.value.Simple();
+    console.log(total);
+    total.innerText = (itemCost*amount).Dollars();
 }
 
-var debug = new Handler();
-
-function Handler() {
-    this.Log = function(any) {
-        var doc = document.createElement("div");
-        var testHold = document.createElement("h1");
-        var test = document.createTextNode(any);
-        testHold.appendChild(test);
-        doc.appendChild(testHold);
-        doc.style.textAlign = "center";
-        doc.style.paddingTop = "40vh";
-        document.body.appendChild(doc);
+function allItems() {
+    var list = document.getElementsByClassName("list-Item");
+    var len = list.length;
+    var other = [];
+    var arr = [];
+    while(len--) {
+        arr.push(list[len].innerText.Simple());
+        other.push(list[len].childNodes[2].value.Simple())
     }
-}
-
-try {
-    try {
-        debug.Log(b);
+    var bank = 0;
+    var totalItems = 0;
+    if (list.length !== 0) {
+        bank = arr.reduce(function(acc,cur) {
+            return acc+cur;
+        }).toFixed(2);
+        totalItems = other.reduce(function(acc,cur) {
+            return acc+cur;
+        });
     }
-    catch (error) {
-        debug.Log(typeof b);
-    }
-}
-catch (error) {
-    console.error("no");
+    var total = document.getElementById("totalC");
+    total.innerText="Total Cost: $"+bank
+    var totalA = document.getElementById("totalA");
+    totalA.innerText="Total Amount: "+totalItems;
+    var totalI = document.getElementById("totalI");
+    totalI.innerText="Total Items: "+list.length;
 }

@@ -9,7 +9,31 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <div id="input-container">
+            <input type="text" style="grid-area:a" id="name">
+            <input type="text" style="grid-area:b" id="cost" onchange="currency(this); getTotal(this,this.nextElementSibling, document.getElementById('total'))">
+            <input type="number" style="grid-area:c" id="amount" onchange="getTotal(this.previousElementSibling, this, document.getElementById('total'));">
+            <div id="formatInput" style="grid-area:c1">
+                <h1 id="totalText">Total:</h1>
+                <h1 id="total">$0.00</h1>
+            </div>
+            <input type="button" style="grid-area:d" value="add" id="add" onclick="addItem(); allItems();">
+        </div>
+        <div id="label-container">
+            <div class="data-container">
+                <h1 style="grid-area:n0">Name</h1>
+                <h1 style="grid-area:n1">Cost</h1>
+                <h1 style="grid-area:n2">Amount</h1>
+                <h1 style="grid-area:n3">Total</h1>
+            </div>
+        </div>
+        <div id="output-container">
+            <div class="data-container" id="information">
+                <h1 id="totalI">Total Items: 0</h1>
+                <h1 id="totalA">Total Amount: 0</h1>
+                <h1 id="totalC">Total Cost: $0.00</h1>
+            </div>
+        </div>
         <script src="script.js" async defer></script>
-        <script src="script1.js" async defer></script>
     </body>
 </html>
